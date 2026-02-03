@@ -1,18 +1,18 @@
 
-Project FCND – Implementation of Controller for Quadcopter – Writeup
+#### Project FCND – Implementation of Controller for Quadcopter – Writeup
 
 Overview
 In this project, I implemented a full cascaded controller for a quadrotor UAV in C++. The controller includes body-rate control, attitude control, position and velocity control, altitude control with integral action, yaw control, and trajectory tracking. The controller was validated through five simulation scenarios, each designed to test a specific aspect of control performance and robustness.
 All scenarios (1–5) were successfully completed.
 
 ### Scenario 1: Intro / Basic Stability
-Objective
+Objective:
 Verify that the quadrotor can remain stable and hover without diverging.
-Implementation
+Implementation:
 No new controller logic was required for this scenario. This scenario was used to confirm:
-•	Correct motor mixing
-•	Proper thrust direction
-•	Correct sign conventions
+  •	Correct motor mixing
+  •	Proper thrust direction
+  •	Correct sign conventions
 Code Location
 •	GenerateMotorCommands()
 Converts collective thrust and body moments into individual motor thrusts using quad geometry.
