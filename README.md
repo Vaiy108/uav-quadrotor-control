@@ -10,9 +10,9 @@ Objective:
 Verify that the quadrotor can remain stable and hover without diverging.
 Implementation:
 No new controller logic was required for this scenario. This scenario was used to confirm:
-  •	Correct motor mixing
-  •	Proper thrust direction
-  •	Correct sign conventions
+1. Correct motor mixing
+2. Proper thrust direction
+3. Correct sign conventions
 Code Location
 •	GenerateMotorCommands()
 Converts collective thrust and body moments into individual motor thrusts using quad geometry.
