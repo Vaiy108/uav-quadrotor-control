@@ -13,7 +13,8 @@ No new controller logic was required for this scenario. This scenario was used t
 1. Correct motor mixing
 2. Proper thrust direction
 3. Correct sign conventions
-Code Location
+   
+# Code Location
 •	GenerateMotorCommands()
 Converts collective thrust and body moments into individual motor thrusts using quad geometry.
 Result
