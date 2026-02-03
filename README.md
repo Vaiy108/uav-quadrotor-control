@@ -19,6 +19,8 @@ Converts collective thrust and body moments into individual motor thrusts using 
 Result
 The quad remained stable and did not diverge, confirming the correctness of the motor command mapping.
 
+![Scenario 2 – Basic stability](media/scenario1_hover.gif)
+
 ### Scenario 2: Body Rate and Roll/Pitch Control
 Objective
 Stabilize angular rates and bring the vehicle back to level attitude when initialized with a nonzero roll rate.
@@ -94,6 +96,7 @@ Tuning
 Result
 Both quadrotors converged to their target positions. The yaw-controlled quad aligned correctly without destabilizing position tracking.
 
+![Scenario 3 – Position Control](media/scenario3_position.gif)
 
 ### Scenario 4: Non-Idealities and Robustness
 Objective
@@ -122,6 +125,8 @@ maxTiltAngle = 0.42
 
 Result
 All three quadrotors successfully followed the commanded motion despite non-ideal dynamics.
+
+![Scenario 4 – Non-Idealities](media/scenario4_non-idealities.gif)
 
 ### Scenario 5: Trajectory Tracking
 Objective
