@@ -6,7 +6,7 @@ In this project, I implemented a full cascaded controller for a quadrotor UAV in
 All scenarios (1–5) were successfully completed.
 
 ## Scenario 1: Intro / Basic Stability
-Objective:
+### Objective:
 Verify that the quadrotor can remain stable and hover without diverging.
 Implementation:
 No new controller logic was required for this scenario. This scenario was used to confirm:
@@ -17,16 +17,16 @@ No new controller logic was required for this scenario. This scenario was used t
 ### Code Location
 •	GenerateMotorCommands()
 Converts collective thrust and body moments into individual motor thrusts using quad geometry.
-Result
+### Result
 The quad remained stable and did not diverge, confirming the correctness of the motor command mapping.
 
 ![Scenario 2 – Basic stability](media/scenario1_hover.gif)
 
-### Scenario 2: Body Rate and Roll/Pitch Control
-Objective
+## Scenario 2: Body Rate and Roll/Pitch Control
+### Objective
 Stabilize angular rates and bring the vehicle back to level attitude when initialized with a nonzero roll rate.
 Implementation
-Body Rate Control
+### Body Rate Control
 Implemented a proportional body-rate controller that computes desired moments from rate error and moments of inertia.
 Code:
 •	Function: BodyRateControl()
@@ -41,27 +41,27 @@ Key logic:
   momentCmd.y = Iyy * uBar.y;
   momentCmd.z = Izz * uBar.z;
 
-Roll/Pitch Control
+### Roll/Pitch Control
 Implemented a controller that converts desired lateral acceleration into desired roll and pitch rates using the rotation matrix.
 Code:
 •	Function: RollPitchControl()
 Tuning
-•	kpPQR = [52, 52, 5]
-•	kpBank = 14
+1. kpPQR = [52, 52, 5]
+2. kpBank = 14
 Result
-•	Roll rate converged to zero
-•	Vehicle stabilized without excessive overshoot
+1. Roll rate converged to zero
+2. Vehicle stabilized without excessive overshoot
 
 Figure 2 shows the quadrotor initialized with a nonzero roll rate.  
 The body rate controller drives the roll rate to zero and stabilizes the attitude.
 
 ![Scenario 2 – Attitude Stabilization](media/scenario2_attitude.gif)
 
-### Scenario 3: Position, Velocity, and Yaw Control
-Objective
+## Scenario 3: Position, Velocity, and Yaw Control
+### Objective
 Move two quadrotors to target positions with different yaw initial conditions.
-Implementation
-Lateral Position Control
+### Implementation
+### Lateral Position Control
 Implemented a PD controller on position and velocity, including velocity and acceleration limits.
 Code:
 •	Function: LateralPositionControl()
@@ -73,7 +73,7 @@ Key logic:
 // Acceleration command (add to feed-forward)
   accelCmd += kpVelXY * velErr;
 
-Altitude Control
+### Altitude Control
 Implemented a vertical PD + integral controller with feedforward acceleration.
 Code:
 •	Function: AltitudeControl()
@@ -86,15 +86,15 @@ Key logic:
   float thrust = mass * (static_cast<float>(CONST_GRAVITY) - u1Bar)
       / fmaxf(R(2, 2), 1e-3f);
 
-Yaw Control
+### Yaw Control
 Implemented proportional yaw control with angle wrapping.
 Code:
 •	Function: YawControl()
 Tuning
-•	kpPosXY = 2.2
-•	kpVelXY = 9
-•	kpYaw = 1.6
-Result
+1. kpPosXY = 2.2
+2. kpVelXY = 9
+3. kpYaw = 1.6
+### Result
 Both quadrotors converged to their target positions. The yaw-controlled quad aligned correctly without destabilizing position tracking.
 
 ![Scenario 3 – Position Control](media/scenario3_position.gif)
@@ -102,8 +102,8 @@ Both quadrotors converged to their target positions. The yaw-controlled quad ali
 ### Scenario 4: Non-Idealities and Robustness
 Objective
 Ensure the controller works under non-ideal conditions:
-•	Shifted center of mass
-•	Increased vehicle mass
+1. Shifted center of mass
+2. Increased vehicle mass
 Implementation
 Integral Altitude Control
 Added integral action in altitude control to compensate for steady-state errors due to mass mismatch.
@@ -116,31 +116,30 @@ Key Design Decisions
 •	Increased altitude position gain to compensate for thrust loss during tilt
 •	Maintained damping to avoid oscillations
 Final Tuning (Scenario 4)
-kpPosZ = 39
-KiPosZ = 20
-kpVelZ = 14
+1. kpPosZ = 39
+2. KiPosZ = 20
+3. kpVelZ = 14
+4. maxSpeedXY = 3
+5. maxHorizAccel = 8
+6. maxTiltAngle = 0.42
 
-maxSpeedXY = 3
-maxHorizAccel = 8
-maxTiltAngle = 0.42
-
-Result
+### Result
 All three quadrotors successfully followed the commanded motion despite non-ideal dynamics.
 
 ![Scenario 4 – Non-Idealities](media/scenario4_non-idealities.gif)
 
-### Scenario 5: Trajectory Tracking
-Objective
+## Scenario 5: Trajectory Tracking
+### Objective
 Track a figure-eight trajectory using the full cascaded controller.
-Implementation
+### Implementation
 No new control logic was required. The existing controller was used with relaxed lateral limits to allow higher-speed maneuvering.
 Key Changes
-•	Increased allowable speed, acceleration, and tilt
-•	Maintained stable attitude and rate control
-Result
+1. Increased allowable speed, acceleration, and tilt
+2. Maintained stable attitude and rate control
+### Result
 Both quadrotors successfully tracked the figure-eight trajectory and remained within the required position error bounds.
 
-Conclusion
+## Conclusion
 A full cascaded quadrotor controller was successfully implemented and tuned in C++. Each control layer was validated incrementally through targeted simulation scenarios. The final controller demonstrates stable hover, precise attitude control, accurate position tracking, robustness to non-idealities, and successful trajectory following.
 
 
