@@ -48,7 +48,8 @@ Code:
 Tuning
 1. kpPQR = [52, 52, 5]
 2. kpBank = 14
-Result
+
+### Result
 1. Roll rate converged to zero
 2. Vehicle stabilized without excessive overshoot
 
