@@ -29,9 +29,9 @@ Implementation
 ### Body Rate Control
 Implemented a proportional body-rate controller that computes desired moments from rate error and moments of inertia.
 Code:
-•	Function: BodyRateControl()
-•	Location: QuadControl.cpp
-Key logic:
+1.	Function: BodyRateControl()
+2.	Location: QuadControl.cpp
+#### Key logic:
   ```// Rate error
   V3F rateError = pqrCmd - pqr
   // Element-wise proportional term
@@ -66,32 +66,36 @@ Move two quadrotors to target positions with different yaw initial conditions.
 ### Lateral Position Control
 Implemented a PD controller on position and velocity, including velocity and acceleration limits.
 Code:
-•	Function: LateralPositionControl()
-Key logic:
-// Position error
+1. Function: LateralPositionControl()
+   
+#### Key logic:
+```// Position error
   V3F posErr = posCmd - pos;
   // Velocity error
   V3F velErr = velCmd2 - vel;
 // Acceleration command (add to feed-forward)
   accelCmd += kpVelXY * velErr;
+```
 
 ### Altitude Control
 Implemented a vertical PD + integral controller with feedforward acceleration.
 Code:
-•	Function: AltitudeControl()
+1. Function: AltitudeControl()
+
 Key logic:
-// Integrate altitude error
+```// Integrate altitude error
   integratedAltitudeError += zErr * dt;
 // Desired vertical acceleration in NED
   float u1Bar = kpPosZ * zErr + kpVelZ * zDotErr + KiPosZ * integratedAltitudeError + accelZCmd;
 // Thrust must counter gravity: accel down positive in NED, so (g - u1Bar)
   float thrust = mass * (static_cast<float>(CONST_GRAVITY) - u1Bar)
       / fmaxf(R(2, 2), 1e-3f);
+```
 
 ### Yaw Control
 Implemented proportional yaw control with angle wrapping.
 Code:
-•	Function: YawControl()
+1. Function: YawControl()
 Tuning
 1. kpPosXY = 2.2
 2. kpVelXY = 9
