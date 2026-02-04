@@ -53,7 +53,7 @@ Tuning
 1. Roll rate converged to zero
 2. Vehicle stabilized without excessive overshoot
 
-Figure 2 shows the quadrotor initialized with a nonzero roll rate.  
+Simulation below shows the quadrotor initialized with a nonzero roll rate.  
 The body rate controller drives the roll rate to zero and stabilizes the attitude.
 
 ![Scenario 2 – Attitude Stabilization](media/scenario2_attitude.gif)
