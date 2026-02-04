@@ -32,7 +32,7 @@ Code:
 •	Function: BodyRateControl()
 •	Location: QuadControl.cpp
 Key logic:
-  // Rate error
+  ```// Rate error
   V3F rateError = pqrCmd - pqr
   // Element-wise proportional term
   V3F uBar = kpPQR * rateError;   // kpPQR is a V3F (Kp_p, Kp_q, Kp_r)
@@ -40,6 +40,7 @@ Key logic:
   momentCmd.x = Ixx * uBar.x;
   momentCmd.y = Iyy * uBar.y;
   momentCmd.z = Izz * uBar.z;
+```
 
 ### Roll/Pitch Control
 Implemented a controller that converts desired lateral acceleration into desired roll and pitch rates using the rotation matrix.
@@ -96,7 +97,7 @@ Tuning
 2. kpVelXY = 9
 3. kpYaw = 1.6
 ### Result
-Both quadrotors converged to their target positions. The yaw-controlled quad aligned correctly without destabilizing position tracking.
+Both quadrotors converged to their target positions. The yaw-controlled quad aligned correctly without destabilizing position tracking. Quadrotors tracked yaw commands, validating position, velocity, and yaw control.
 
 ![Scenario 3 – Position Control](media/scenario3_position.gif)
 
